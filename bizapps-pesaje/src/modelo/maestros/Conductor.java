@@ -1,12 +1,15 @@
 package modelo.maestros;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import modelo.transacciones.Pesaje;
 
 
 /**
@@ -25,6 +28,9 @@ public class Conductor implements Serializable {
 	private String nombres;
 	
 	private String apellidos;
+	
+	@OneToMany(mappedBy="conductor")
+	private List<Pesaje> pesaje;
 
 	public Conductor() {
 	}
@@ -54,6 +60,16 @@ public class Conductor implements Serializable {
 
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
+	}
+
+
+	public List<Pesaje> getPesaje() {
+		return pesaje;
+	}
+
+
+	public void setPesaje(List<Pesaje> pesaje) {
+		this.pesaje = pesaje;
 	}
 
 

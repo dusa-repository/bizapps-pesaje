@@ -1,14 +1,17 @@
 package modelo.maestros;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import modelo.transacciones.Pesaje;
 
 
 /**
@@ -28,6 +31,9 @@ public class Transporte implements Serializable {
 	private String descripcion;
 	
 	private String codigo;
+	
+	@OneToMany(mappedBy="transporte")
+	private List<Pesaje> pesaje;
 
 	public Transporte() {
 	}
@@ -54,6 +60,14 @@ public class Transporte implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<Pesaje> getPesaje() {
+		return pesaje;
+	}
+
+	public void setPesaje(List<Pesaje> pesaje) {
+		this.pesaje = pesaje;
 	}
 
 
