@@ -16,6 +16,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -76,7 +77,7 @@ public class CInicio extends CGenerico {
 			+ String.valueOf(calendario.get(Calendar.SECOND));
 	public java.util.Date fecha = new Date();
 	public Timestamp fechaHora = new Timestamp(fecha.getTime());
-	boolean boton =false;
+	boolean boton = false;
 
 	public CInicio(boolean mira) {
 		super();
@@ -84,7 +85,7 @@ public class CInicio extends CGenerico {
 		vista.setVisible(true);
 		vista.agregarListener(this);
 		vista.setDtbEntrada(now);
-		boton=mira;
+		boton = mira;
 		if (mira)
 			vista.getBtnPendiente().setEnabled(true);
 		else
@@ -208,15 +209,14 @@ public class CInicio extends CGenerico {
 			pesaje.setFechaAuditoria(fechaHora);
 			getSPesaje().guardar(pesaje);
 			if (idPesaje == 0) {
-			Pesaje pesaje2=getSPesaje().buscarUltimo();
-			mostrarReporte(pesaje2);
+				Pesaje pesaje2 = getSPesaje().buscarUltimo();
+				mostrarReporte(pesaje2);
 			}
 			limpiar();
 			JOptionPane.showMessageDialog(null,
 					"Pesaje Realizado Exitosamente ", "Informacion",
 					JOptionPane.INFORMATION_MESSAGE);
-	
-		
+
 		}
 	}
 
@@ -329,8 +329,8 @@ public class CInicio extends CGenerico {
 		inhabilitar(true);
 		vista.getBtnGuardar().setEnabled(true);
 		vista.getBtnAutomatico().setEnabled(true);
-		if(boton)
-		vista.getBtnPendiente().setEnabled(true);
+		if (boton)
+			vista.getBtnPendiente().setEnabled(true);
 		else
 			vista.getBtnPendiente().setEnabled(false);
 	}
@@ -424,7 +424,7 @@ public class CInicio extends CGenerico {
 							llenarCampos(pesaje);
 							vista.getBtnGuardar().setEnabled(false);
 							vista.getBtnAutomatico().setEnabled(false);
-							
+
 							vista.getBtnPendiente().setEnabled(false);
 							vista.getDtbSalida().setEnabled(false);
 							try {
@@ -510,8 +510,7 @@ public class CInicio extends CGenerico {
 			idAlmacen = pesaje.getAlmacen().getIdAlmacen();
 		}
 		vista.getTxtPesoEntrada().setText(String.valueOf(pesaje.getEntrada()));
-		vista.getTxtTotalEntrada().setText(
-				String.valueOf(pesaje.getEntrada()));
+		vista.getTxtTotalEntrada().setText(String.valueOf(pesaje.getEntrada()));
 		Double diferencia = (double) 0;
 		double entrada = pesaje.getEntrada();
 		if (pesaje.getSalida() != null) {
@@ -527,7 +526,8 @@ public class CInicio extends CGenerico {
 
 			vista.getTxtNetoTotal()
 					.setText(String.valueOf(pesaje.getEntrada()));
-			vista.getTxtNetoVehiculo().setText(String.valueOf(pesaje.getEntrada()));
+			vista.getTxtNetoVehiculo().setText(
+					String.valueOf(pesaje.getEntrada()));
 		}
 		try {
 
@@ -581,7 +581,8 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
@@ -615,7 +616,8 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
@@ -650,7 +652,8 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
@@ -685,7 +688,8 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
@@ -720,7 +724,8 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 	}
 
 	public void mostrarProductos() {
@@ -753,6 +758,7 @@ public class CInicio extends CGenerico {
 					}
 
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 	}
 }
