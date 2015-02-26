@@ -25,12 +25,17 @@ public class SBalanza {
 		return balanzaDAO.findAll();
 	}
 
-	public void eliminarUno(int id) {
+	public void eliminarUno(long id) {
 		balanzaDAO.delete(id);
 	}
 
 	public void eliminarVarios(List<Balanza> eliminarLista) {
 		balanzaDAO.delete(eliminarLista);
+	}
+
+	public Balanza buscar(long idBalanza) {
+		// TODO Auto-generated method stub
+		return balanzaDAO.findOne(idBalanza);
 	}
 
 }

@@ -2,18 +2,17 @@ package componente;
 
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Modelo;
-import modelo.maestros.Producto;
+import modelo.maestros.Vehiculo;
+import modelo.transacciones.Pesaje;
 
 @SuppressWarnings("serial")
-public class CatalogoProducto extends AbstractTableModel  {
+public class CatalogoPesaje extends AbstractTableModel {
 	String[] titulo;
-	List<Producto> listaModelo;
+	List<Pesaje> listaModelo;
 
-	public CatalogoProducto(List<Producto> lista, String... titulo) {
+	public CatalogoPesaje(List<Pesaje> lista, String... titulo) {
 		super();
 		this.listaModelo = lista;
 		this.titulo = titulo;
@@ -31,19 +30,25 @@ public class CatalogoProducto extends AbstractTableModel  {
 
 	@Override
 	public Object getValueAt(int fila, int columna) {
-		Producto modelo = listaModelo.get(fila);
+		Pesaje modelo = listaModelo.get(fila);
 		switch (columna) {
 		case 0:
-			return modelo.getIdProducto();
+			return modelo.getBoleto();
 		case 1:
-			return modelo.getDescripcion();
+			return modelo.getFechaPesaje();
+		case 2:
+			return modelo.getConductor().getNombres() + "  "+ modelo.getConductor().getApellidos();
+		case 3:
+			return modelo.getVehiculo().getPlaca();
+		case 4:
+			return modelo.getEntrada();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
 		return titulo[column];
 	}
-	
+
 }

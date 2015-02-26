@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import modelo.maestros.Almacen;
+import modelo.maestros.Balanza;
 import modelo.maestros.Conductor;
 import modelo.maestros.Producto;
 import modelo.maestros.Transporte;
@@ -55,8 +56,15 @@ public class Pesaje implements Serializable {
 	@JoinColumn(name = "id_almacen")
 	private Almacen almacen;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_balanza")
+	private Balanza balanza;
+	
 	@Column(name = "fecha_pesaje")
 	private Timestamp fechaPesaje;
+	
+	@Column(name = "fecha_pesaje_salida")
+	private Timestamp fechaPesajeSalida;
 
 	@Column(name = "hora_pesaje", length = 10)
 	private String horaPesaje;
@@ -229,6 +237,22 @@ public class Pesaje implements Serializable {
 
 	public void setUsuarioAuditoria(String usuarioAuditoria) {
 		this.usuarioAuditoria = usuarioAuditoria;
+	}
+
+	public Balanza getBalanza() {
+		return balanza;
+	}
+
+	public void setBalanza(Balanza balanza) {
+		this.balanza = balanza;
+	}
+
+	public Timestamp getFechaPesajeSalida() {
+		return fechaPesajeSalida;
+	}
+
+	public void setFechaPesajeSalida(Timestamp fechaPesajeSalida) {
+		this.fechaPesajeSalida = fechaPesajeSalida;
 	}
 
 }
