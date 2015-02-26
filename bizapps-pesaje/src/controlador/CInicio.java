@@ -117,7 +117,7 @@ public class CInicio extends CGenerico {
 			limpiar();
 			break;
 		case "btnReporte":
-			// mostrarProductos();
+			reporte();
 			break;
 		case "btnGuardar":
 			guardar();
@@ -134,6 +134,19 @@ public class CInicio extends CGenerico {
 		default:
 			break;
 		}
+	}
+
+	private void reporte() {
+		if (idPesaje == 0)
+			JOptionPane.showMessageDialog(null,
+					"Debe Seleccionar un Pesaje Realizado", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		else {
+			Pesaje pesa = getSPesaje().buscar(idPesaje);
+			if (pesa != null)
+				mostrarReporte(pesa);
+		}
+
 	}
 
 	private void guardar() {
@@ -186,22 +199,21 @@ public class CInicio extends CGenerico {
 			pesaje.setHoraAuditoria(horaAuditoria);
 			pesaje.setFechaAuditoria(fechaHora);
 			getSPesaje().guardar(pesaje);
+			mostrarReporte(pesaje);
+			limpiar();
 			JOptionPane.showMessageDialog(null,
 					"Pesaje Realizado Exitosamente ", "Informacion",
 					JOptionPane.INFORMATION_MESSAGE);
-			limpiar();
-
-			mostrarReporte(pesaje);
+	
+		
 		}
 	}
 
 	private void mostrarReporte(Pesaje pesaje) {
 		JasperReport reporte = null;
 		try {
-//			reporte = (JasperReport) JRLoader
-//					.loadObject("reporte/RPesaje.jasper");
-			reporte = (JasperReport) JRLoader.loadObject(getClass().getResource(
-					"/reporte/RPesaje.jasper"));
+			reporte = (JasperReport) JRLoader.loadObject(getClass()
+					.getResource("/reporte/RPesaje.jasper"));
 		} catch (JRException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -209,6 +221,37 @@ public class CInicio extends CGenerico {
 
 		Map<String, Object> p = new HashMap<String, Object>();
 		p.put("boleto", pesaje.getBoleto());
+		p.put("status", pesaje.getEstatus());
+		p.put("vehiculo", pesaje.getVehiculo().getPlaca());
+		p.put("transporte", pesaje.getTransporte().getDescripcion());
+		p.put("producto", pesaje.getProducto().getIdProducto() + " , "
+				+ pesaje.getProducto().getDescripcion());
+		p.put("conductor", pesaje.getConductor().getCedula() + " , "
+				+ pesaje.getConductor().getNombres() + " "
+				+ pesaje.getConductor().getApellidos());
+		p.put("status", pesaje.getEstatus());
+		p.put("observacion", pesaje.getObservacion());
+
+		p.put("fechaEntrada", pesaje.getFechaPesaje().toString());
+		if (pesaje.getFechaPesajeSalida() != null)
+			p.put("fechaSalida", pesaje.getFechaPesajeSalida().toString());
+
+		p.put("pesoEntrada", pesaje.getEntrada());
+		if (pesaje.getSalida() != null)
+			p.put("pesoSalida", pesaje.getSalida());
+
+		if (pesaje.getSalida() == null)
+			p.put("total", pesaje.getEntrada());
+		else {
+			Double diferencia = (double) 0;
+			double entrada = pesaje.getEntrada();
+			double salida = pesaje.getSalida();
+			if (entrada > salida)
+				diferencia = entrada - salida;
+			else
+				diferencia = salida - entrada;
+			p.put("total", diferencia);
+		}
 
 		JasperPrint jasperPrint = null;
 		try {
@@ -219,13 +262,6 @@ public class CInicio extends CGenerico {
 			e.printStackTrace();
 		}
 		JasperViewer.viewReport(jasperPrint, false);
-
-		// SecurityContextImpl sc = new SecurityContextImpl();
-		// Authentication auth = new UsernamePasswordAuthenticationToken("",
-		// "");
-		// sc.setAuthentication(auth);
-		// SecurityContextHolder.setContext(sc);
-
 	}
 
 	private boolean validar() {
@@ -460,9 +496,25 @@ public class CInicio extends CGenerico {
 			idAlmacen = pesaje.getAlmacen().getIdAlmacen();
 		}
 		vista.getTxtPesoEntrada().setText(String.valueOf(pesaje.getEntrada()));
-		vista.getTxtNetoVehiculo().setText(String.valueOf(pesaje.getEntrada()));
-		vista.getTxtTotalEntrada().setText(String.valueOf(pesaje.getEntrada()));
-		vista.getTxtNetoTotal().setText(String.valueOf(pesaje.getEntrada()));
+		vista.getTxtTotalEntrada().setText(
+				String.valueOf(pesaje.getEntrada()));
+		Double diferencia = (double) 0;
+		double entrada = pesaje.getEntrada();
+		if (pesaje.getSalida() != null) {
+			double peso = pesaje.getSalida();
+			if (entrada > peso)
+				diferencia = entrada - peso;
+			else
+				diferencia = peso - entrada;
+
+			vista.getTxtNetoTotal().setText(String.valueOf(diferencia));
+			vista.getTxtNetoVehiculo().setText(String.valueOf(diferencia));
+		} else {
+
+			vista.getTxtNetoTotal()
+					.setText(String.valueOf(pesaje.getEntrada()));
+			vista.getTxtNetoVehiculo().setText(String.valueOf(pesaje.getEntrada()));
+		}
 		try {
 
 			vista.setDtbEntrada(sdfDate.parse(pesaje.getFechaPesaje()
