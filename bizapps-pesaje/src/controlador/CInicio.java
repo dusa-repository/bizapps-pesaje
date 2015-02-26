@@ -202,11 +202,15 @@ public class CInicio extends CGenerico {
 					pesoSalida = Double.parseDouble(peso);
 				pesaje.setSalida(pesoSalida);
 				pesaje.setEstatus("Cerrado");
+				mostrarReporte(pesaje);
 			}
 			pesaje.setHoraAuditoria(horaAuditoria);
 			pesaje.setFechaAuditoria(fechaHora);
 			getSPesaje().guardar(pesaje);
-			mostrarReporte(pesaje);
+			if (idPesaje == 0) {
+			Pesaje pesaje2=getSPesaje().buscarUltimo();
+			mostrarReporte(pesaje2);
+			}
 			limpiar();
 			JOptionPane.showMessageDialog(null,
 					"Pesaje Realizado Exitosamente ", "Informacion",

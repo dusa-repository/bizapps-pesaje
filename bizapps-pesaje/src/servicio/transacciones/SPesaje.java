@@ -25,7 +25,14 @@ public class SPesaje {
 	}
 
 	public Pesaje buscar(long boleto) {
-		// TODO Auto-generated method stub
+
 		return pesajeDAO.findOne(boleto);
+	}
+
+	public Pesaje buscarUltimo() {
+		long id = pesajeDAO.findMaxPesaje();
+		if (id != 0)
+			return pesajeDAO.findOne(id);
+		return null;
 	}
 }
