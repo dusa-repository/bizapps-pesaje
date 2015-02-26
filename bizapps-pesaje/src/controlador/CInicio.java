@@ -443,7 +443,8 @@ public class CInicio extends CGenerico {
 
 					}
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
@@ -479,7 +480,8 @@ public class CInicio extends CGenerico {
 
 					}
 				});
-		frame.add(tabla);
+		JScrollPane scrollPane = new JScrollPane(tabla);
+		frame.add(scrollPane);
 
 	}
 
