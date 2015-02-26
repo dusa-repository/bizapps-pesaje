@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import servicio.SModelo;
 import servicio.maestros.SAlmacen;
 import servicio.maestros.SBalanza;
 import servicio.maestros.SConductor;
