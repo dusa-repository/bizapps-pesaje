@@ -54,15 +54,15 @@ public class Usuario implements Serializable {
 	private byte[] imagen;
 
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean estado;
+	private Boolean estado;
 
 	@Column(name = "solo_ver_pesaje")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean soloVer;
+	private Boolean soloVer;
 	
 	@Column(name = "ver_editar_pesaje")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean verPesajeYEditar;
+	private Boolean verPesajeYEditar;
 
 	@Column(name = "usuario_auditoria", length = 50)
 	private String usuarioAuditoria;
@@ -175,7 +175,7 @@ public class Usuario implements Serializable {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 
@@ -267,19 +267,19 @@ public class Usuario implements Serializable {
 		this.direccion = direccion;
 	}
 
-	public boolean isSoloVer() {
+	public Boolean isSoloVer() {
 		return soloVer;
 	}
 
-	public void setSoloVer(boolean soloVer) {
+	public void setSoloVer(Boolean soloVer) {
 		this.soloVer = soloVer;
 	}
 
-	public boolean isVerPesajeYEditar() {
+	public Boolean isVerPesajeYEditar() {
 		return verPesajeYEditar;
 	}
 
-	public void setVerPesajeYEditar(boolean verPesajeYEditar) {
+	public void setVerPesajeYEditar(Boolean verPesajeYEditar) {
 		this.verPesajeYEditar = verPesajeYEditar;
 	}
 

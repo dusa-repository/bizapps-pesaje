@@ -16,5 +16,7 @@ public interface IUsuarioDAO extends JpaRepository<Usuario, Long> {
 	List<Usuario> findByIdUsuarioNotIn(List<Long> lista);
 
 	Usuario findByLoginAndIdUsuarioNotIn(String value, List<Long> lista);
+
+	Usuario findByLoginAndPassword(String nombre, String password);
 	
 }

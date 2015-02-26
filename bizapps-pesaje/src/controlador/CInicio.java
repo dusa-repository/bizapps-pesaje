@@ -77,12 +77,16 @@ public class CInicio extends CGenerico {
 	public java.util.Date fecha = new Date();
 	public Timestamp fechaHora = new Timestamp(fecha.getTime());
 
-	public CInicio() {
+	public CInicio(boolean mira) {
 		super();
 		vista = new Inicio();
 		vista.setVisible(true);
 		vista.agregarListener(this);
 		vista.setDtbEntrada(now);
+		if (mira)
+			vista.getBtnPendiente().setVisible(true);
+		else
+			vista.getBtnPendiente().setVisible(false);
 	}
 
 	@Override
@@ -707,10 +711,6 @@ public class CInicio extends CGenerico {
 
 				});
 		frame.add(tabla);
-	}
-
-	public static void main(String args[]) {
-		CInicio generico = new CInicio();
 	}
 
 	public void mostrarProductos() {

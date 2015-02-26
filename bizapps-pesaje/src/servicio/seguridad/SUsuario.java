@@ -1,6 +1,5 @@
 package servicio.seguridad;
 
-
 import interfacedao.seguridad.IUsuarioDAO;
 
 import java.util.ArrayList;
@@ -56,5 +55,8 @@ public class SUsuario {
 		return usuarioDAO.findByLogin(value);
 	}
 
+	public Usuario buscarPorLoginAndPassword(String nombre, String password) {
+		return usuarioDAO.findByLoginAndPassword(nombre, password);
+	}
 
 }
