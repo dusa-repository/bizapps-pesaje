@@ -5,14 +5,15 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Modelo;
+import modelo.maestros.Producto;
+import modelo.maestros.Transporte;
 
 @SuppressWarnings("serial")
-public class CatalogoModelo extends AbstractTableModel  {
+public class CatalogoTransporte extends AbstractTableModel  {
 	String[] titulo;
-	List<Modelo> listaModelo;
+	List<Transporte> listaModelo;
 
-	public CatalogoModelo(List<Modelo> lista, String... titulo) {
+	public CatalogoTransporte(List<Transporte> lista, String... titulo) {
 		super();
 		this.listaModelo = lista;
 		this.titulo = titulo;
@@ -30,12 +31,14 @@ public class CatalogoModelo extends AbstractTableModel  {
 
 	@Override
 	public Object getValueAt(int fila, int columna) {
-		Modelo modelo = listaModelo.get(fila);
+		Transporte modelo = listaModelo.get(fila);
 		switch (columna) {
 		case 0:
-			return modelo.getNombre();
+			return modelo.getIdTransporte();
 		case 1:
-			return modelo.getNombre();
+			return modelo.getCodigo();
+		case 2:
+			return modelo.getDescripcion();
 		}
 		return null;
 	}

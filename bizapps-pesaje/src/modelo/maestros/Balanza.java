@@ -1,14 +1,19 @@
 package modelo.maestros;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
+
+import modelo.transacciones.Pesaje;
 
 
 /**
@@ -23,27 +28,32 @@ public class Balanza implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@Column(name = "id_balanza")
+	private long idBalanza;
 
 	private String descripcion;
 
+	@OneToMany(mappedBy="vehiculo")
+    private List<Pesaje> pesaje;
+	
 	public Balanza() {
 	}
 
-	public int getCodigo() {
-		return this.id;
+	public long getIdBalanza() {
+		return idBalanza;
 	}
 
-	public void setCodigo(int codigo) {
-		this.id = codigo;
+	public void setIdBalanza(long idBalanza) {
+		this.idBalanza = idBalanza;
 	}
 
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	
 }

@@ -26,12 +26,18 @@ public class STransporte {
 		return transporteDAO.findAll();
 	}
 
-	public void eliminarUno(int id) {
+	public void eliminarUno(long id) {
 		transporteDAO.delete(id);
 	}
 
 	public void eliminarVarios(List<Transporte> eliminarLista) {
 		transporteDAO.delete(eliminarLista);
 	}
+
+	public Transporte buscar(long idTransporte) {
+		// TODO Auto-generated method stub
+		return transporteDAO.findOne(idTransporte);
+	}
+
 
 }

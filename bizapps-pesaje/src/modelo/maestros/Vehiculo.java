@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 
 import modelo.transacciones.Pesaje;
@@ -28,10 +29,10 @@ public class Vehiculo implements Serializable {
 	private String descripcion;
 	
 	private Double peso;
-	
-	@OneToMany(mappedBy="vehiculo")
-	private List<Pesaje> pesaje;
 
+	@OneToMany(mappedBy="balanza")
+    private List<Pesaje> pesaje;
+	
 	public Vehiculo() {
 	}
 
@@ -57,14 +58,6 @@ public class Vehiculo implements Serializable {
 
 	public void setPeso(Double peso) {
 		this.peso = peso;
-	}
-
-	public List<Pesaje> getPesaje() {
-		return pesaje;
-	}
-
-	public void setPesaje(List<Pesaje> pesaje) {
-		this.pesaje = pesaje;
 	}
 
 

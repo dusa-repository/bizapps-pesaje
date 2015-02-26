@@ -3,6 +3,7 @@ package modelo.maestros;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
@@ -22,22 +23,24 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String id;
+	@Column(name = "id_producto")
+	private String idProducto;
 
 	private String descripcion;
+
 	
 	@OneToMany(mappedBy="producto")
-	private List<Pesaje> pesaje;
-
+    private List<Pesaje> pesaje;
+	
 	public Producto() {
 	}
 
-	public String getId() {
-		return id;
+	public String getIdProducto() {
+		return idProducto;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdProducto(String idProducto) {
+		this.idProducto = idProducto;
 	}
 
 	public String getDescripcion() {
@@ -48,13 +51,6 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Pesaje> getPesaje() {
-		return pesaje;
-	}
-
-	public void setPesaje(List<Pesaje> pesaje) {
-		this.pesaje = pesaje;
-	}
 
 
 }

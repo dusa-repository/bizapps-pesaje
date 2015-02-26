@@ -27,12 +27,17 @@ public class SAlmacen {
 		return almacenDAO.findAll();
 	}
 
-	public void eliminarUno(int id) {
+	public void eliminarUno(long id) {
 		almacenDAO.delete(id);
 	}
 
 	public void eliminarVarios(List<Almacen> eliminarLista) {
 		almacenDAO.delete(eliminarLista);
+	}
+
+	public Almacen buscar(long idAlmacen) {
+		// TODO Auto-generated method stub
+		return almacenDAO.findOne(idAlmacen);
 	}
 
 }
