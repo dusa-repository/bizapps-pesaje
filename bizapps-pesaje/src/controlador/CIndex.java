@@ -27,28 +27,23 @@ public class CIndex extends CGenerico {
 		Usuario user = getSUsuario()
 				.buscarPorLoginAndPassword(nombre, password);
 		if (user != null) {
-			if (user.isSoloVer() != null) {
+			if (!user.isSoloVer() && !user.isVerPesajeYEditar())
+				index.getLblLogin().setText(
+						"No posee permisos para ver Pesaje");
+			else {
 				if (user.isSoloVer()) {
 					CInicio cInicio;
-					if (user.isVerPesajeYEditar() != null) {
-						if (user.isVerPesajeYEditar())
-							cInicio = new CInicio(true);
-						else
-							cInicio = new CInicio(false);
-					} else
-						cInicio = new CInicio(false);
-					index.dispose();
-				} else
-					index.getLblLogin().setText(
-							"No posee permisos para ver el Pesaje");
-			} else
-				index.getLblLogin().setText(
-						"No posee permisos para ver el Pesaje");
-
+					cInicio = new CInicio(false);
+				} else {
+					CInicio cInicio;
+					cInicio = new CInicio(true);
+				}
+				index.dispose();
+			}
 		} else
-			index.getLblLogin().setText("Usuario o Password Incorrectos");
+			index.getLblLogin().setText("Usuario o Contraseña Incorrecta");
 	}
-	
+
 	public static void main(String args[]) {
 		CIndex generico = new CIndex();
 	}

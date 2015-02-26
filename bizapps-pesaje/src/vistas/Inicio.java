@@ -64,7 +64,7 @@ public class Inicio extends JFrame {
 	 */
 	public Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 80, 602, 644);
+		setBounds(300, 75, 602, 637);
 		getContentPane().setLayout(null);
 		panel = new JPanel();
 		panel.setForeground(new Color(255, 255, 255));
@@ -747,5 +747,4 @@ public class Inicio extends JFrame {
 	public void setBtnPendiente(JButton btnPendiente) {
 		this.btnPendiente = btnPendiente;
 	}
-	
 }

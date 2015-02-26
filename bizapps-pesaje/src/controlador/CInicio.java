@@ -76,6 +76,7 @@ public class CInicio extends CGenerico {
 			+ String.valueOf(calendario.get(Calendar.SECOND));
 	public java.util.Date fecha = new Date();
 	public Timestamp fechaHora = new Timestamp(fecha.getTime());
+	boolean boton =false;
 
 	public CInicio(boolean mira) {
 		super();
@@ -83,10 +84,11 @@ public class CInicio extends CGenerico {
 		vista.setVisible(true);
 		vista.agregarListener(this);
 		vista.setDtbEntrada(now);
+		boton=mira;
 		if (mira)
-			vista.getBtnPendiente().setVisible(true);
+			vista.getBtnPendiente().setEnabled(true);
 		else
-			vista.getBtnPendiente().setVisible(false);
+			vista.getBtnPendiente().setEnabled(false);
 	}
 
 	@Override
@@ -116,6 +118,7 @@ public class CInicio extends CGenerico {
 			break;
 		case "btnSalir":
 			vista.dispose();
+			CIndex cIndex = new CIndex();
 			break;
 		case "btnLimpiar":
 			limpiar();
@@ -322,8 +325,10 @@ public class CInicio extends CGenerico {
 		inhabilitar(true);
 		vista.getBtnGuardar().setEnabled(true);
 		vista.getBtnAutomatico().setEnabled(true);
+		if(boton)
 		vista.getBtnPendiente().setEnabled(true);
-
+		else
+			vista.getBtnPendiente().setEnabled(false);
 	}
 
 	private void pendiente() {
@@ -415,6 +420,7 @@ public class CInicio extends CGenerico {
 							llenarCampos(pesaje);
 							vista.getBtnGuardar().setEnabled(false);
 							vista.getBtnAutomatico().setEnabled(false);
+							
 							vista.getBtnPendiente().setEnabled(false);
 							vista.getDtbSalida().setEnabled(false);
 							try {
