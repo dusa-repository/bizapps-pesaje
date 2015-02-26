@@ -30,7 +30,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
-
+import net.sf.jasperreports.view.JasperViewer;
 import modelo.maestros.Almacen;
 import modelo.maestros.Balanza;
 import modelo.maestros.Conductor;
@@ -196,38 +196,35 @@ public class CInicio extends CGenerico {
 	}
 
 	private void mostrarReporte(Pesaje pesaje) {
-//
-//		JasperReport reporte = null;
-//		try {
+		JasperReport reporte = null;
+		try {
 //			reporte = (JasperReport) JRLoader
 //					.loadObject("reporte/RPesaje.jasper");
-//		} catch (JRException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//		Map p = new HashMap();
-//		p.put("boleto", pesaje.getBoleto());
-//
-//		JasperPrint jasperPrint = null;
-//		try {
-//			jasperPrint = JasperFillManager.fillReport(reporte,
-//					p, new JRBeanCollectionDataSource(null));
-//		} catch (JRException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		JRExporter exporter = new JRPdfExporter();
-//		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-//		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,
-//				new java.io.File("reporte3PDF.pdf"));
-//		try {
-//			exporter.exportReport();
-//		} catch (JRException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+			reporte = (JasperReport) JRLoader.loadObject(getClass().getResource(
+					"/reporte/RPesaje.jasper"));
+		} catch (JRException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("boleto", pesaje.getBoleto());
+
+		JasperPrint jasperPrint = null;
+		try {
+			jasperPrint = JasperFillManager.fillReport(reporte, p,
+					new JRBeanCollectionDataSource(null));
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JasperViewer.viewReport(jasperPrint, false);
+
+		// SecurityContextImpl sc = new SecurityContextImpl();
+		// Authentication auth = new UsernamePasswordAuthenticationToken("",
+		// "");
+		// sc.setAuthentication(auth);
+		// SecurityContextHolder.setContext(sc);
 
 	}
 
