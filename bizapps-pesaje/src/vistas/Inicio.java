@@ -64,12 +64,12 @@ public class Inicio extends JFrame {
 	 */
 	public Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 75, 602, 637);
+		setBounds(300, 75, 615, 643);
 		getContentPane().setLayout(null);
 		panel = new JPanel();
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(0, 0, 586, 606);
+		panel.setBounds(0, 0, 599, 606);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
