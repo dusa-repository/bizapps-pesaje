@@ -1,6 +1,7 @@
 package controlador;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -397,7 +398,7 @@ public class CInicio extends CGenerico {
 	private void cerrados() {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 550, 450);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -440,18 +441,21 @@ public class CInicio extends CGenerico {
 							editable(false);
 						}
 						frame.dispose();
+						
 
 					}
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
 	private void mostrarPesajes() {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 550, 450);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -482,6 +486,8 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
@@ -555,7 +561,7 @@ public class CInicio extends CGenerico {
 	private void mostrarConductor() {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -585,13 +591,15 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
 	private void mostrarVehiculos() {
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -620,6 +628,8 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
@@ -627,7 +637,7 @@ public class CInicio extends CGenerico {
 
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -656,14 +666,15 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
-
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	private void mostrarAlmacen() {
 
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -692,14 +703,15 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
-
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	private void mostrarTransporte() {
 
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -728,13 +740,15 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	public void mostrarProductos() {
 
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setBounds(350, 90, 500, 400);
+		frame.setLocation(350, 90);
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.setVisible(true);
@@ -762,5 +776,7 @@ public class CInicio extends CGenerico {
 				});
 		JScrollPane scrollPane = new JScrollPane(tabla);
 		frame.add(scrollPane);
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
