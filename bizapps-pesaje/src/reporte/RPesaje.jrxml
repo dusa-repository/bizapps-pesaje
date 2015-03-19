@@ -15,6 +15,7 @@
 	<parameter name="pesoSalida" class="java.lang.Double"/>
 	<parameter name="total" class="java.lang.Double"/>
 	<parameter name="observacion" class="java.lang.String"/>
+	<parameter name="imagen" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -311,8 +312,8 @@ Rif:  J-30940783-0 ]]></text>
 				<textFieldExpression><![CDATA[$P{pesoSalida}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="32" y="12" width="115" height="45" uuid="7ade29f9-a36c-4b01-880c-9153cb28749f"/>
-				<imageExpression><![CDATA["E:\\Desktop\\workspaceJuno\\bizapps-pesaje\\src\\reporte\\LogoDusa.png"]]></imageExpression>
+				<reportElement x="32" y="7" width="100" height="50" uuid="2c1fe018-a08e-4d8b-8435-ffbb733c2728"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.engine.util.JRImageLoader.loadImage ((byte []) $P{imagen}) ]]></imageExpression>
 			</image>
 		</band>
 	</title>
