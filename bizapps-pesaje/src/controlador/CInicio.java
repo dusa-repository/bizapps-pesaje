@@ -1,10 +1,12 @@
 package controlador;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,7 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,16 +28,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import modelo.maestros.Almacen;
 import modelo.maestros.Balanza;
 import modelo.maestros.Conductor;
@@ -40,7 +35,15 @@ import modelo.maestros.Producto;
 import modelo.maestros.Transporte;
 import modelo.maestros.Vehiculo;
 import modelo.transacciones.Pesaje;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import vistas.Inicio;
+
 import componente.CatalogoAlmacen;
 import componente.CatalogoBalanza;
 import componente.CatalogoConductor;
@@ -139,6 +142,8 @@ public class CInicio extends CGenerico {
 			break;
 		case "btnCerrados":
 			cerrados();
+		case "txtEntrada":
+			System.out.println("aaaaaaa");
 			break;
 		default:
 			break;
@@ -244,6 +249,31 @@ public class CInicio extends CGenerico {
 		p.put("status", pesaje.getEstatus());
 		p.put("observacion", pesaje.getObservacion());
 
+		URL url = getClass().getResource("/reporte/LogoDusa.png");
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(url);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(image, "png", baos);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			baos.flush();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		byte[] imageBytes = baos.toByteArray();
+
+		p.put("imagen", imageBytes);
+
 		p.put("fechaEntrada", pesaje.getFechaPesaje().toString());
 		if (pesaje.getFechaPesajeSalida() != null)
 			p.put("fechaSalida", pesaje.getFechaPesajeSalida().toString());
@@ -286,8 +316,19 @@ public class CInicio extends CGenerico {
 						"Debe Llenar Todos los Campos", "Error",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
-			} else
-				return true;
+			} else {
+				if (!vista.getTxtPesoEntrada().getText().equals("")
+						&& !buenNumero(vista.getTxtPesoEntrada().getText()))
+				{
+					JOptionPane.showMessageDialog(null,
+							"El Peso de Entrada no tiene el formato correcto (xxxxxx.xx)", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return false;
+
+				} else
+					return true;
+			}
+
 		} else {
 			if (vista.getDtbSalida().getDate() == null
 					|| vista.getTxtPesoSalida().getText().equals("")) {
@@ -296,10 +337,35 @@ public class CInicio extends CGenerico {
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			} else
-				return true;
+			 {
+				if (!vista.getTxtPesoSalida().getText().equals("")
+						&& !buenNumero(vista.getTxtPesoSalida().getText()))
+				{
+					JOptionPane.showMessageDialog(null,
+							"El Peso de Salida no tiene el formato correcto (xxxxxx.xx)", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return false;
+
+				} else
+					return true;
+			}
 
 		}
 
+	}
+
+	private boolean buenNumero(String string) {
+		if (validarDouble(string))
+			return true;
+		else
+			return false;
+	}
+
+	public boolean validarDouble(String numero) {
+		String PATTERN = "\\d+\\.\\d+";
+		Pattern pattern = Pattern.compile(PATTERN);
+		Matcher matcher = pattern.matcher(numero);
+		return matcher.matches();
 	}
 
 	private void limpiar() {
@@ -341,7 +407,7 @@ public class CInicio extends CGenerico {
 		if (idPesaje == 0)
 			editable(true);
 		else {
-			vista.getTxtTotalSalida().setEditable(true);
+			vista.getTxtTotalSalida().setEditable(false);
 			vista.getTxtPesoSalida().setEditable(true);
 			vista.getDtbSalida().setEnabled(true);
 		}
@@ -375,8 +441,8 @@ public class CInicio extends CGenerico {
 	}
 
 	private void editable(boolean a) {
-		vista.getTxtTotalEntrada().setEditable(a);
-		vista.getTxtTotalSalida().setEditable(a);
+		vista.getTxtTotalEntrada().setEditable(false);
+		vista.getTxtTotalSalida().setEditable(false);
 		vista.getTxtPesoEntrada().setEditable(a);
 		vista.getTxtPesoSalida().setEditable(a);
 		vista.getTxtNetoTotal().setEditable(a);
@@ -392,7 +458,6 @@ public class CInicio extends CGenerico {
 		double result = start + (random * (end - start));
 		double resultado = Math.round(result * 100) / 100;
 		return resultado;
-
 	}
 
 	private void cerrados() {
@@ -441,7 +506,6 @@ public class CInicio extends CGenerico {
 							editable(false);
 						}
 						frame.dispose();
-						
 
 					}
 				});
